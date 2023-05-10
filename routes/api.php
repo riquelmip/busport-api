@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\TicketTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,4 +35,9 @@ Route::group([
 
     Route::post('ticket/create', [TicketTypeController::class, 'createOrUpdate']);
     Route::get('ticket/delete/{id}', [TicketTypeController::class, 'delete']);
+
+    Route::get('countries', [CountryController::class,'index']);
+    Route::get('countries/{CountryId}', [CountryController::class,'show']);
+    Route::post('countries/create', [CountryController::class, 'createOrUpdate']);
+    Route::delete('countries/delete/{id}', [CountryController::class, 'delete']);
 });
