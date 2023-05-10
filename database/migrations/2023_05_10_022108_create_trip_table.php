@@ -23,6 +23,7 @@ return new class extends Migration
             $table->double('price');
             $table->unsignedBigInteger('id_class_service'); //primera, turista
             $table->unsignedBigInteger('id_ticket'); //ida, ida vuelta
+            $table->unsignedBigInteger('id_passenger_type'); //tipo pasajero niño, adulto
             $table->timestamps();
 
             $table->foreign('id_origin_city')
@@ -40,6 +41,10 @@ return new class extends Migration
             $table->foreign('id_ticket')
                 ->references('id')
                 ->on('ticket_type');
+
+            $table->foreign('id_passenger_type')
+                ->references('id')
+                ->on('passenger_type');
         });
     }
 

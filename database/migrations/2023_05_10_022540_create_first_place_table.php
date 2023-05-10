@@ -13,19 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('trip_has_first_places', function (Blueprint $table) {
+        Schema::create('first_place', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_trip');
-            $table->unsignedBigInteger('id_first_place');
+            $table->string('name');
+            $table->unsignedBigInteger('id_first_place_type');
             $table->timestamps();
 
-            $table->foreign('id_trip')
+            
+            $table->foreign('id_first_place_type')
                 ->references('id')
-                ->on('trip');
-
-            $table->foreign('id_first_place')
-                ->references('id')
-                ->on('first_place');
+                ->on('first_place_type');
         });
     }
 
@@ -36,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trip_has_first_places');
+        Schema::dropIfExists('first_place');
     }
 };
