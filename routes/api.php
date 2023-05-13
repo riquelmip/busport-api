@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\PublicController;
 use App\Http\Controllers\TicketTypeController;
 use App\Http\Controllers\TripController;
 use Illuminate\Http\Request;
@@ -55,4 +56,16 @@ Route::group([
     // |name | Mexico    |
     Route::delete('countries/delete/{id}', [CountryController::class, 'delete']);//DELETE
     //http://127.0.0.1:8000/api/auth/countries/delete/1
+});
+
+
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'public'
+
+], function ($router) {
+
+    Route::get('trips', [PublicController::class, 'index']);
+
 });
