@@ -35,6 +35,8 @@ Route::group([
 
     Route::post('ticket/create', [TicketTypeController::class, 'createOrUpdate']);
     Route::get('ticket/delete/{id}', [TicketTypeController::class, 'delete']);
+    Route::get('ticket', [TicketTypeController::class, 'index']);
+    Route::get('ticket/{id}', [TicketTypeController::class, 'show']);
 
     Route::get('countries', [CountryController::class,'index']);//GET
     //http://127.0.0.1:8000/api/auth/countries

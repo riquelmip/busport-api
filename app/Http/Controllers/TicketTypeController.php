@@ -8,6 +8,15 @@ use Illuminate\Support\Facades\Validator;
 
 class TicketTypeController extends Controller
 {
+    public function index(){
+        $tickets = TicketType::all();
+
+        return response()->json([
+            'message' => 'Tickets',
+            'data' => $tickets
+        ], 201);
+    }
+
     public function createOrUpdate(Request $request)
     {
         if ($_POST) {
@@ -28,7 +37,7 @@ class TicketTypeController extends Controller
                 $ticket = TicketType::create(['name' => $name, 'idcountry' => null]);
 
                 return response()->json([
-                    'message' => 'Ticket creado',
+                    'message' => 'Ticket created',
                     'data' => $ticket
                 ], 201);
                 
@@ -49,12 +58,22 @@ class TicketTypeController extends Controller
                 $ticket->save();
 
                 return response()->json([
-                    'message' => 'Ticket actualizado',
+                    'message' => 'Ticket updated',
                     'data' => $ticket
                 ], 201);
 
             }
         }
+    }
+
+    public function show($id){
+        $idTicketType = intval($id);
+
+        $ticket = TicketType::find($idTicketType);
+        return response()->json([
+            'message' => 'Show Ticket',
+            'data' => $ticket
+        ], 201);
     }
 
     public function delete($idTicket){ 
@@ -64,7 +83,7 @@ class TicketTypeController extends Controller
         $ticket->delete();
 
         return response()->json([
-            'message' => 'Ticket eliminado',
+            'message' => 'Ticket deleted',
             'data' => $ticket
         ], 201);
     }
