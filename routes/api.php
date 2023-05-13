@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\TicketTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,4 +35,16 @@ Route::group([
 
     Route::post('ticket/create', [TicketTypeController::class, 'createOrUpdate']);
     Route::get('ticket/delete/{id}', [TicketTypeController::class, 'delete']);
+
+    Route::get('countries', [CountryController::class,'index']);//GET
+    //http://127.0.0.1:8000/api/auth/countries
+    Route::get('countries/{CountryId}', [CountryController::class,'show']);//GET primero crear un registro
+    //http://127.0.0.1:8000/api/auth/countries/2
+    Route::post('countries/create', [CountryController::class, 'createOrUpdate']);//POST
+    // http://127.0.0.1:8000/api/auth/countries/create
+    // http://127.0.0.1:8000/api/auth/countries/create
+    // |key  | value     |
+    // |name | Mexico    |
+    Route::delete('countries/delete/{id}', [CountryController::class, 'delete']);//DELETE
+    //http://127.0.0.1:8000/api/auth/countries/delete/1
 });
