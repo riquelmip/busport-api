@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TicketTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FirstPlaceTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +35,13 @@ Route::group([
 
     Route::post('ticket/create', [TicketTypeController::class, 'createOrUpdate']);
     Route::get('ticket/delete/{id}', [TicketTypeController::class, 'delete']);
+
+
+    /**rutas de First Place Type */
+Route::get('/first-place-types', [FirstPlaceTypeController::class, 'index']);
+Route::post('/first-place-types', [FirstPlaceTypeController::class, 'store']);
+Route::get('/first-place-types/{id}', [FirstPlaceTypeController::class, 'show']);
+Route::put('/first-place-types/{id}', [FirstPlaceTypeController::class, 'update']);
+Route::delete('/first-place-types/{id}', [FirstPlaceTypeController::class, 'destroy']);
+
 });
