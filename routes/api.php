@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TicketTypeController;
+use App\Http\Controllers\PassangerTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,11 @@ Route::group([
     Route::get('me', [AuthController::class, 'me']);
     Route::post('register', [AuthController::class, 'register']);
 
-    Route::post('ticket/create', [TicketTypeController::class, 'createOrUpdate']);
+    Route::post('ticket/create', [TicketTypeController::class, 'CreateOrUpdate']);
     Route::get('ticket/delete/{id}', [TicketTypeController::class, 'delete']);
+
+    Route::post('passanger/create', [PassangerTypeController::class, 'createOrUpdate']);
+    Route::get('passanger/delete/{id}', [PassangerTypeController::class, 'delete']);
+    Route::get('passanger/show/{id}', [PassangerTypeController::class, 'show']);
+    Route::get('passanger', [PassangerTypeController::class, 'index']);
 });
