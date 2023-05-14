@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClassServiceController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\TicketTypeController;
@@ -56,6 +57,13 @@ Route::group([
     // |name | Mexico    |
     Route::delete('countries/delete/{id}', [CountryController::class, 'delete']);//DELETE
     //http://127.0.0.1:8000/api/auth/countries/delete/1
+
+
+    Route::get('class-service', [ClassServiceController::class,'index']);
+    Route::get('class-service/{id}', [ClassServiceController::class,'show']);
+    Route::post('class-service/create', [ClassServiceController::class, 'createOrUpdate']);
+    Route::delete('class-service/delete/{id}', [ClassServiceController::class, 'delete']);
+  
 });
 
 
