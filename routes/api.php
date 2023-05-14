@@ -81,3 +81,4 @@ Route::group([
     Route::get('trips', [PublicController::class, 'index']);
 
 });
+
