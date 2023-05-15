@@ -3,11 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Models\TicketType;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class TicketTypeController extends Controller
 {
+    public function __construct()
+    {
+        //para que siempre que se quiera acceder a este controlador, verifique la autorizacion, execptuando los metodos del login y registro
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    }
+    
+    public function index()
+    {
+        try {
+            $tickets = TicketType::all();
+
+            return response()->json([
+                'message' => 'Tickets',
+                'data' => $tickets
+            ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error',
+                'data' => $e->getMessage(),
+            ], 404);
+        }
+    }
+
     public function createOrUpdate(Request $request)
     {
         if ($_POST) {
@@ -25,13 +49,20 @@ class TicketTypeController extends Controller
                     return response()->json($validator->errors(), 400);
                 }
 
-                $ticket = TicketType::create(['name' => $name, 'idcountry' => null]);
+                try {
 
-                return response()->json([
-                    'message' => 'Ticket creado',
-                    'data' => $ticket
-                ], 201);
-                
+                    $ticket = TicketType::create(['name' => $name]);
+
+                    return response()->json([
+                        'message' => 'Ticket created',
+                        'data' => $ticket
+                    ], 201);
+                } catch (Exception $e) {
+                    return response()->json([
+                        'message' => 'Error',
+                        'data' => $e->getMessage(),
+                    ], 404);
+                }
             } else {
                 //ES UPDATE
 
@@ -43,29 +74,62 @@ class TicketTypeController extends Controller
                     return response()->json($validator->errors(), 400);
                 }
 
-                // TicketType::find($idTicketType)->update(['name' => $name]);
-                $ticket = TicketType::find($idTicketType);
-                $ticket->name = $name;
-                $ticket->save();
+                try {
+                    // TicketType::find($idTicketType)->update(['name' => $name]);
+                    $ticket = TicketType::find($idTicketType);
+                    $ticket->name = $name;
+                    $ticket->save();
 
-                return response()->json([
-                    'message' => 'Ticket actualizado',
-                    'data' => $ticket
-                ], 201);
-
+                    return response()->json([
+                        'message' => 'Ticket updated',
+                        'data' => $ticket
+                    ], 201);
+                } catch (Exception $e) {
+                    return response()->json([
+                        'message' => 'Error',
+                        'data' => $e->getMessage(),
+                    ], 404);
+                }
             }
         }
     }
 
-    public function delete($idTicket){ 
+    public function show($id)
+    {
+        try {
+            $idTicketType = intval($id);
+
+            $ticket = TicketType::find($idTicketType);
+            return response()->json([
+                'message' => 'Show Ticket',
+                'data' => $ticket
+            ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error',
+                'data' => $e->getMessage(),
+            ], 404);
+        }
+    }
+
+    public function delete($idTicket)
+    {
+        try{
         $idTicketType = intval($idTicket);
 
         $ticket = TicketType::find($idTicketType);
         $ticket->delete();
 
         return response()->json([
-            'message' => 'Ticket eliminado',
+            'message' => 'Ticket deleted',
             'data' => $ticket
         ], 201);
+
+    } catch (Exception $e) {
+        return response()->json([
+            'message' => 'Error',
+            'data' => $e->getMessage(),
+        ], 404);
+    }
     }
 }
