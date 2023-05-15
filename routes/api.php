@@ -6,7 +6,7 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\FirstPlaceController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\TicketTypeController;
-use App\Http\Controllers\PassangerTypeController;
+use App\Http\Controllers\TripController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FirstPlaceTypeController;
@@ -48,7 +48,8 @@ Route::group([
     Route::get('trip', [TripController::class, 'index']);
     Route::get('trip/{id}', [TripController::class, 'show']);
 
-    Route::get('countries', [CountryController::class, 'index']); //GET
+    Route::get('countries', [CountryController::class,'index']);//GET
+
     //http://127.0.0.1:8000/api/auth/countries
     Route::get('countries/{CountryId}', [CountryController::class, 'show']); //GET primero crear un registro
     //http://127.0.0.1:8000/api/auth/countries/2
@@ -82,6 +83,13 @@ Route::group([
     Route::get('/first-place-types/{id}', [FirstPlaceTypeController::class, 'show']);
     Route::put('/first-place-types/{id}', [FirstPlaceTypeController::class, 'update']);
     Route::delete('/first-place-types/{id}', [FirstPlaceTypeController::class, 'destroy']);
+
+    // Start City Routes
+    Route::post('city/create', [CityController::class, 'createOrUpdate']);
+    Route::get('city/delete/{id}', [CityController::class, 'delete']);
+    Route::get('city', [CityController::class, 'index']);
+    Route::get('city/{id}', [CityController::class, 'show']);
+    // End City Routes
 });
 
 
