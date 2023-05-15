@@ -5,6 +5,7 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\TicketTypeController;
 use App\Http\Controllers\TripController;
+use App\Http\Controllers\CityController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +45,14 @@ Route::group([
     Route::get('trip/delete/{id}', [TripController::class, 'delete']);
     Route::get('trip', [TripController::class, 'index']);
     Route::get('trip/{id}', [TripController::class, 'show']);
+
+
+    // Start City Routes
+    Route::post('city/create', [CityController::class, 'createOrUpdate']);
+    Route::get('city/delete/{id}', [CityController::class, 'delete']);
+    Route::get('city', [CityController::class, 'index']);
+    Route::get('city/{id}', [CityController::class, 'show']);
+    // End City Routes
 
     Route::get('countries', [CountryController::class,'index']);//GET
     //http://127.0.0.1:8000/api/auth/countries
