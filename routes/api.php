@@ -9,6 +9,7 @@ use App\Http\Controllers\TicketTypeController;
 use App\Http\Controllers\PassangerTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FirstPlaceTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,10 +71,18 @@ Route::group([
     Route::get('passanger/show/{id}', [PassangerTypeController::class, 'show']);
     Route::get('passanger', [PassangerTypeController::class, 'index']);
 
+
     Route::post('first-place/create', [FirstPlaceController::class, 'createOrUpdate']);
     Route::get('first-place/delete/{id}', [FirstPlaceController::class, 'delete']);
     Route::get('first-place', [FirstPlaceController::class, 'index']);
     Route::get('first-place/{id}', [FirstPlaceController::class, 'show']);
+        /**rutas de First Place Type */
+Route::get('/first-place-types', [FirstPlaceTypeController::class, 'index']);
+Route::post('/first-place-types', [FirstPlaceTypeController::class, 'store']);
+Route::get('/first-place-types/{id}', [FirstPlaceTypeController::class, 'show']);
+Route::put('/first-place-types/{id}', [FirstPlaceTypeController::class, 'update']);
+Route::delete('/first-place-types/{id}', [FirstPlaceTypeController::class, 'destroy']);
+
 });
 
 
