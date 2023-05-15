@@ -1,13 +1,15 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClassServiceController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\FirstPlaceController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\TicketTypeController;
 use App\Http\Controllers\TripController;
-use App\Http\Controllers\CityController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FirstPlaceTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +38,7 @@ Route::group([
     Route::get('me', [AuthController::class, 'me']);
     Route::post('register', [AuthController::class, 'register']);
 
-    Route::post('ticket/create', [TicketTypeController::class, 'createOrUpdate']);
+    Route::post('ticket/create', [TicketTypeController::class, 'CreateOrUpdate']);
     Route::get('ticket/delete/{id}', [TicketTypeController::class, 'delete']);
     Route::get('ticket', [TicketTypeController::class, 'index']);
     Route::get('ticket/{id}', [TicketTypeController::class, 'show']);
@@ -65,6 +67,30 @@ Route::group([
     // |name | Mexico    |
     Route::delete('countries/delete/{id}', [CountryController::class, 'delete']);//DELETE
     //http://127.0.0.1:8000/api/auth/countries/delete/1
+
+
+    Route::get('class-service', [ClassServiceController::class,'index']);
+    Route::get('class-service/{id}', [ClassServiceController::class,'show']);
+    Route::post('class-service/create', [ClassServiceController::class, 'createOrUpdate']);
+    Route::delete('class-service/delete/{id}', [ClassServiceController::class, 'delete']);
+  
+    Route::post('passanger/create', [PassangerTypeController::class, 'createOrUpdate']);
+    Route::get('passanger/delete/{id}', [PassangerTypeController::class, 'delete']);
+    Route::get('passanger/show/{id}', [PassangerTypeController::class, 'show']);
+    Route::get('passanger', [PassangerTypeController::class, 'index']);
+
+
+    Route::post('first-place/create', [FirstPlaceController::class, 'createOrUpdate']);
+    Route::get('first-place/delete/{id}', [FirstPlaceController::class, 'delete']);
+    Route::get('first-place', [FirstPlaceController::class, 'index']);
+    Route::get('first-place/{id}', [FirstPlaceController::class, 'show']);
+        /**rutas de First Place Type */
+Route::get('/first-place-types', [FirstPlaceTypeController::class, 'index']);
+Route::post('/first-place-types', [FirstPlaceTypeController::class, 'store']);
+Route::get('/first-place-types/{id}', [FirstPlaceTypeController::class, 'show']);
+Route::put('/first-place-types/{id}', [FirstPlaceTypeController::class, 'update']);
+Route::delete('/first-place-types/{id}', [FirstPlaceTypeController::class, 'destroy']);
+
 });
 
 
@@ -78,3 +104,4 @@ Route::group([
     Route::get('trips', [PublicController::class, 'index']);
 
 });
+
