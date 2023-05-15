@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassServiceController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\FirstPlaceController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\TicketTypeController;
 use App\Http\Controllers\PassangerTypeController;
@@ -68,6 +69,11 @@ Route::group([
     Route::get('passanger/delete/{id}', [PassangerTypeController::class, 'delete']);
     Route::get('passanger/show/{id}', [PassangerTypeController::class, 'show']);
     Route::get('passanger', [PassangerTypeController::class, 'index']);
+
+    Route::post('first-place/create', [FirstPlaceController::class, 'createOrUpdate']);
+    Route::get('first-place/delete/{id}', [FirstPlaceController::class, 'delete']);
+    Route::get('first-place', [FirstPlaceController::class, 'index']);
+    Route::get('first-place/{id}', [FirstPlaceController::class, 'show']);
 });
 
 
