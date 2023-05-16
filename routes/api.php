@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\ClassServiceController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\FirstPlaceController;
@@ -10,6 +11,9 @@ use App\Http\Controllers\TripController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FirstPlaceTypeController;
+use App\Http\Controllers\PassangerTypeController;
+use App\Http\Controllers\TripHasFirstPlaceController;
+use App\Models\TripHasFirstPlace;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +94,11 @@ Route::group([
     Route::get('city', [CityController::class, 'index']);
     Route::get('city/{id}', [CityController::class, 'show']);
     // End City Routes
+
+    Route::post('trip-has-first-place/create', [TripHasFirstPlaceController::class, 'createOrUpdate']);
+    Route::get('trip-has-first-place/delete/{id}', [TripHasFirstPlaceController::class, 'delete']);
+    Route::get('trip-has-first-place', [TripHasFirstPlaceController::class, 'index']);
+    Route::get('trip-has-first-place/{id}', [TripHasFirstPlaceController::class, 'show']);
 });
 
 

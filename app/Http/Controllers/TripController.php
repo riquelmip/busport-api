@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TicketType;
 use App\Models\Trip;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,17 +13,24 @@ class TripController extends Controller
     public function __construct()
     {
         //para que siempre que se quiera acceder a este controlador, verifique la autorizacion, execptuando los metodos del login y registro
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api');
     }
-    
+
     public function index()
     {
-        $trips = Trip::all();
+        try {
+            $trips = Trip::all();
 
-        return response()->json([
-            'message' => 'Trips',
-            'data' => $trips
-        ], 201);
+            return response()->json([
+                'message' => 'Trips',
+                'data' => $trips
+            ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error',
+                'data' => $e->getMessage(),
+            ], 404);
+        }
     }
 
     public function createOrUpdate(Request $request)
@@ -31,7 +39,7 @@ class TripController extends Controller
             $idTrip = $request->input('idTrip');
 
             //verify de foreig keys
-            
+
 
             $validator = Validator::make($request->all(), [
                 'id_origin_city' => 'required',

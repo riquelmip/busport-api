@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Validator;
 
 class CityController extends Controller
 {
+    public function __construct()
+    {
+        //para que siempre que se quiera acceder a este controlador, verifique la autorizacion, execptuando los metodos del login y registro
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    }
+    
     public function index()
     {
         return City::all();

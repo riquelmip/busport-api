@@ -3,14 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\FirstPlaceTypeModel;
+use Exception;
 use Illuminate\Http\Request;
 
 class FirstPlaceTypeController extends Controller
 {
+    public function __construct()
+    {
+        //para que siempre que se quiera acceder a este controlador, verifique la autorizacion, execptuando los metodos del login y registro
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    }
+
     public function index(Request $request)
     {
-        $firstPlaceTypes = FirstPlaceTypeModel::all();
-        return response()->json($firstPlaceTypes);
+        try {
+            $firstPlaceTypes = FirstPlaceTypeModel::all();
+            return response()->json($firstPlaceTypes);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error',
+                'data' => $e->getMessage(),
+            ], 404);
+        }
     }
 
     /**
